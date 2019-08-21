@@ -1,8 +1,11 @@
 import React, {Component} from "react";
 import * as d3 from "d3";
+import "../style/map.css";
 
 export default class Chart extends Component {
-
+    componentWillMount() {
+        
+    }
     componentDidMount() {
         this.drawChart();
     }
@@ -16,9 +19,13 @@ export default class Chart extends Component {
     }
 
     drawChart() {
+        let selected = new Object();
         let width = this.props.width;
         let height = this.props.height;
-        //d3.json("https://gist.githubusercontent.com/mbostock/4062045/raw/5916d145c8c048a6e3086915a6be464467391c62/miserables.json")
+        let selectChanged = (d) => {
+            this.setState({selecte: d});
+            console.log(d);
+        }
         d3.json("http://localhost:8080/map")
         .then(data => {
             let drag = simulation => {
@@ -51,14 +58,12 @@ export default class Chart extends Component {
             }
             let links = data.links.map(d => Object.create(d));
             let nodes = data.nodes.map(d => Object.create(d));
-    
+            
             let simulation = d3.forceSimulation(nodes)
-                .force("link", d3.forceLink(links).id(d => d.id))
-                .force("charge", d3.forceManyBody())
+                .force("link", d3.forceLink(links).id(d => d.id).strength(0.1).distance(260))
+                .force("charge", d3.forceManyBody().strength(-100))
                 .force("center", d3.forceCenter(width / 2, height / 2));
     
-            // let svg = d3.create("svg")
-            //     .attr("viewBox", [0, 0, width, height]);
             let svg = d3.select(".map").append("svg").attr("width", width).attr("height", height);
             this.svg = svg;
             let link = svg.append("g")
@@ -67,7 +72,7 @@ export default class Chart extends Component {
                 .selectAll("line")
                 .data(links)
                 .join("line")
-                .attr("stroke-width", d => Math.sqrt(d.value));
+                .attr("stroke-width", d => 1);
     
             let node = svg.append("g")
                 .attr("stroke", "#fff")
@@ -77,10 +82,20 @@ export default class Chart extends Component {
                 .join("circle")
                 .attr("r", 5)
                 .attr("fill", color)
-                .call(drag(simulation));
+                .call(drag(simulation))
+                .on("click", function(d) {
+                    if (selected.hasOwnProperty("ele") && selected.hasOwnProperty("data")) {
+                        console.log(selected.data.__proto__.group);
+                        console.log(color(selected.data.__proto__.group));
+                        d3.select(selected.ele).style("fill", "" + color(selected.data.__proto__.group));
+                    }
+                    selected = {ele: this, data: d};
+                    selectChanged(d.__proto__.id);
+                    d3.select(this).style("fill", "red");
+                });
     
             node.append("title")
-                .text(d => d.id);
+                .text(d => d.name);
     
             simulation.on("tick", () => {
                 link
