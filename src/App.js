@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MainPage from "./pages/main";
+import LogMonitor from "./pages/logmonitor";
+
 // Each logical "route" has two components, one for
 // the sidebar and one for the main area. We want to
 // render both of them in different places when the
@@ -13,7 +15,7 @@ const routes = [
   },
   {
     path: "/logmonitor",
-    main: () => <h2>log</h2>
+    main: () => <LogMonitor />
   },
   {
     path: "/seeds",
@@ -36,7 +38,7 @@ function MarkLink({ label, to, activeOnlyWhenExact }) {
   );
 }
 
-function SidebarExample() {
+function App() {
   return (
     <Router>
       <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%"}}>
@@ -44,7 +46,7 @@ function SidebarExample() {
           style={{
             padding: "10px",
             width: "100%",
-            height: "10%",
+            height: "5%",
             background: "#f0f0f0"
           }}
         >
@@ -76,7 +78,7 @@ function SidebarExample() {
           ))}
         </div>
 
-        <div id="content" style={{ flex: 1, padding: "0px", height: "90%"}}>
+        <div id="content" style={{ flex: 1, padding: "0px", height: "95%"}}>
           {routes.map((route, index) => (
             // Render more <Route>s with the same paths as
             // above, but different components this time.
@@ -93,4 +95,4 @@ function SidebarExample() {
   );
 }
 
-export default SidebarExample;
+export default App;

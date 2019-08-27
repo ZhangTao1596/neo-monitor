@@ -1,0 +1,14 @@
+  .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .log {
+    color: #f1f1f1;
+    font-family: Cousine,monospace;
+    font-size: 12px;
+  }
+  .scrollarea {
+    background-color: #222;
+    height: 95%;
+  }
