@@ -4,10 +4,10 @@ import {
 } from "recharts";
 
 const data = [];
-for(let i = 0; i < 50; i++) {
+for(let i = 3773043; i < 3773095; i++) {
     let ele = {
         height: i,
-        TxPerBlock: Math.round(100 * Math.random()),
+        txperblock: Math.round(100 * Math.random()),
     };
     data.push(ele);
 }
@@ -26,10 +26,11 @@ export default class TxCountChart extends PureComponent {
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="height" />
-        <YAxis dataKey="TxPerBlock" />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="TxPerBlock" fill="#8884d8" />
+        <YAxis dataKey="txperblock" />
+        <Tooltip labelFormatter={(value, name, props) => [`height: ${value}`]}/>
+        <Bar dataKey="txperblock">
+          {data.map((value, index) => <Cell key={index} fill={value.txperblock < 20 ? "green" : (value.txperblock < 100 ? "orange" : "red")} />)}
+        </Bar>
       </BarChart>
     );
   }

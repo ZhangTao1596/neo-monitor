@@ -109,7 +109,7 @@ export default class LogBox extends Component {
   
     render() {
       return (
-        <div className="logBox">
+        <div className="logBox" style={{height: 1000}}>
           <div className="header">
             <h1 className="title">Log Monitor</h1>
             <div>
@@ -122,9 +122,8 @@ export default class LogBox extends Component {
                 }}
               />
             </div>
-          </div>
+          </div >
           <LogList data={this.state.data} />
-          
         </div>
       );
     }

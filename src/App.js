@@ -1,7 +1,8 @@
-import React from "react";
+import React, {Image}from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import MainPage from "./pages/main";
 import LogMonitor from "./pages/logmonitor";
+import logo from "./resources/neo_logo.svg";
 
 // Each logical "route" has two components, one for
 // the sidebar and one for the main area. We want to
@@ -41,16 +42,24 @@ function MarkLink({ label, to, activeOnlyWhenExact }) {
 function App() {
   return (
     <Router>
-      <div style={{ display: "flex", flexDirection: "column", width: "100%", height: "100%"}}>
+      <div style={{ display: "flex", flexDirection: "column",  alignItems: "center", width: "100%", height: "100%", backgroundColor: "#F0F0F0"}}>
         <div
           style={{
-            padding: "10px",
-            width: "100%",
-            height: "5%",
-            background: "#f0f0f0"
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginTop: "20px",
+            width: "80%",
+            height: "40px",
+            background: "#FFFFFF"
           }}
         >
-          <ul style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", listStyleType: "none", padding: 0,}}>
+          <div style={{width: "80px", height: "30px"}}>
+            <img src={logo} />
+          </div>
+          <div >
+          <ul style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center", listStyleType: "none", padding: 0,}}>
             <li>
               <MarkLink to="/" activeOnlyWhenExact={true} label="Home"/>
             </li>
@@ -61,24 +70,10 @@ function App() {
               <MarkLink to="/seeds" label="Seeds"/>
             </li>
           </ul>
-
-          {routes.map((route, index) => (
-            // You can render a <Route> in as many places
-            // as you want in your app. It will render along
-            // with any other <Route>s that also match the URL.
-            // So, a sidebar or breadcrumbs or anything else
-            // that requires you to render multiple things
-            // in multiple places at the same URL is nothing
-            // more than multiple <Route>s.
-            <Route
-              key={index}
-              path={route.path}
-              exact={route.exact}
-            />
-          ))}
+          </div>
         </div>
 
-        <div id="content" style={{ flex: 1, padding: "0px", height: "95%"}}>
+        <div id="content" style={{padding: "0px", width: "100%"}}>
           {routes.map((route, index) => (
             // Render more <Route>s with the same paths as
             // above, but different components this time.

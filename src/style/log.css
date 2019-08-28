@@ -1,4 +1,5 @@
   .header{
+    height: 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,6 +10,7 @@
     font-size: 12px;
   }
   .scrollarea {
+    height: 95%;
     background-color: #222;
     height: 95%;
   }
