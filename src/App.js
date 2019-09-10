@@ -30,8 +30,7 @@ function MarkLink({ label, to, activeOnlyWhenExact }) {
       path={to}
       exact={activeOnlyWhenExact}
       children={({ match }) => (
-        <div className={match ? "active" : ""}>
-          {match ? "> " : ""}
+        <div className={match ? "active" : ""} style={{backgroundColor: match ? "green" : "white", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center",}}>
           <Link to={to}>{label}</Link>
         </div>
       )}
@@ -51,25 +50,23 @@ function App() {
             alignItems: "center",
             marginTop: "20px",
             width: "80%",
-            height: "40px",
+            height: "50px",
             background: "#FFFFFF"
           }}
         >
-          <div style={{width: "80px", height: "30px"}}>
+          <div style={{width: "80px", height: "30px", marginLeft: "20px"}}>
             <img src={logo} />
           </div>
-          <div >
-          <ul style={{ display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center", listStyleType: "none", padding: 0,}}>
-            <li>
+          <div style={{marginRight: "100px", display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center", width: "60%", height: "100%"}}>
+            <div style={{height: "100%", width: "20%", display: "flex", justifyContent: "center", alignItems: "center"}}>
               <MarkLink to="/" activeOnlyWhenExact={true} label="Home"/>
-            </li>
-            <li>
+            </div>
+            <div style={{height: "100%", width: "20%", display: "flex", justifyContent: "center", alignItems: "center"}}>
               <MarkLink to="/logmonitor" label="LogMonitor"/>
-            </li>
-            <li>
+            </div>
+            <div style={{height: "100%", width: "20%", display: "flex", justifyContent: "center", alignItems: "center"}}>
               <MarkLink to="/seeds" label="Seeds"/>
-            </li>
-          </ul>
+            </div>
           </div>
         </div>
 

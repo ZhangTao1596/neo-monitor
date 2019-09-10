@@ -111,7 +111,6 @@ export default class LogBox extends Component {
       return (
         <div className="logBox" style={{height: 1000}}>
           <div className="header">
-            <h1 className="title">Log Monitor</h1>
             <div>
               <Combobox
                 defaultValue = {"all"}
